@@ -1,0 +1,35 @@
+# distance of drivers locations fron the users loaction
+# connectivity is import as to fetch the users current location That is stored in DB
+
+import connectivity as con
+from geopy import distance
+
+#my=('22.958458', '76.036436')
+my=con.get_location(1)
+
+# taken  test locations for drivers loaction to test the code.
+loc=(('22.954458','76.038786'),('22.968996','76.064772'),('22.949383','76.034330'),('22.902029','75.984395'),('22.868620','75.962546'),('22.960993','76.044939'))
+z=list(loc)
+count = 0
+max = 5
+i=len(loc)
+x=0
+
+#to get all the drivers that are in particular range of distance.
+while(count<5 and x<=(i-1)):
+    if(x<i):
+        if(z[x]==(0,0)):
+            x=x+1
+        dis = distance.distance(my, z[x])
+        #x=x+1
+        if(dis<max):
+            print(count+1,"ambulance =",dis)
+            count=count+1
+            z[x]=(0,0)
+
+        elif((dis>max) and (x==(i-1))):
+            max=max+5
+            x=0
+        x = x + 1
+
+
