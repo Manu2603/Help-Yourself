@@ -1,0 +1,25 @@
+#sending SMS to the respected number using twilio api.
+# first set up your twilio account and generate a test Number to send SMS
+
+#importing package
+from twilio.rest import Client
+
+account_sid="*************"   # add your twilio account ID.
+auth_token="**************"   # add auth token for your account
+
+
+client= Client(account_sid,auth_token)
+location=(22.958458 , 76.036436)
+name='Manish'
+message= client.messages.create(
+
+    #pr = ("https://www.google.com/maps/search/?api=1&query=%s,%s"%(m1,m2)) put coordinates at m1,m2 
+    #This link takes you direct to the Original google map laocation of coordinates.
+    #this is direct link for google map(22.958458 , 76.036436)
+
+    body="Alert!!!\nYour friend {} is in emergency.\nGet fast to location:\nhttps://www.google.com/maps/search/?api=1&query={},{}\n If you can go to location, Confirm by sending mail to : help.yourself@gmail.com  as subject 'Yes'.".format(name,location[0],location[1]),
+    from_='+19104740537',
+    to='+91**********'     #add the number on which SMS is to be sent.
+)
+#after successful tranfer to sms an Id se printed.
+print(message.sid)
